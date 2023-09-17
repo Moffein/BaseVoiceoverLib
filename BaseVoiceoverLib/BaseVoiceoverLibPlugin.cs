@@ -16,6 +16,12 @@ namespace BaseVoiceoverLib
         public void Awake()
         {
             BaseVoiceoverComponent.Init();
+            RoR2.RoR2Application.onLoad += OnLoad;
+        }
+
+        private void OnLoad()
+        {
+            BaseVoiceoverComponent.scepterIndex = ItemCatalog.FindItemIndex("ITEM_ANCIENT_SCEPTER");
         }
     }
 }

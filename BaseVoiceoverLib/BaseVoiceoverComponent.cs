@@ -8,6 +8,10 @@ namespace BaseVoiceoverLib
     //Decisions on how to play sounds/handle cooldowns wil lbe left to the specific voiceover implementation.
     public class BaseVoiceoverComponent : MonoBehaviour
     {
+        //Check this in Inventory_onItemAddedClient if you want to play a voiceline when acquiring the Ancient Scepter.
+        //I usually add extra logic around it, but it's too specific to include in this class.
+        public static ItemIndex scepterIndex;
+
         protected bool playedSpawnVoiceline = false;
 
         protected float voiceCooldown = 0f;
@@ -127,6 +131,7 @@ namespace BaseVoiceoverLib
                 }
             }
         }
+       
         public bool TryPlayNetworkSound(string soundName, float cooldown, bool forcePlay)
         {
             NetworkSoundEventIndex index = NetworkSoundEventCatalog.FindNetworkSoundEventIndex(soundName);
@@ -189,8 +194,7 @@ namespace BaseVoiceoverLib
             SetSpawnVoicelineDelay();
         }
 
-
-        //This runs during Awake().
+        //Runs in Awake. Sets delay for the spawn voicelien. Set playedSpawnVoiceline to true here if you want no spawn voiceline.
         protected virtual void SetSpawnVoicelineDelay()
         {
             spawnVoicelineDelay = 3f;
@@ -264,12 +268,12 @@ namespace BaseVoiceoverLib
                 }
             }
 
-            HandleHealthComponent();
-            HandleBody();
+            FixedUpdateHealth();
+            FixedUpdateBody();
         }
 
-        //Do it like this so that less hooks are needed.
-        protected virtual void HandleHealthComponent()
+        //Checks for death, low health, and HP lost.
+        protected virtual void FixedUpdateHealth()
         {
             if (healthComponent)
             {
@@ -299,8 +303,8 @@ namespace BaseVoiceoverLib
             }
         }
 
-        //Do it like this so that less hooks are needed.
-        protected virtual void HandleBody()
+        //Checks for levelup.
+        protected virtual void FixedUpdateBody()
         {
             if (body)
             {
