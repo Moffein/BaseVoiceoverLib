@@ -265,22 +265,18 @@ namespace BaseVoiceoverLib
         {
             if (skill == skillLocator.primary)
             {
-                PlayPrimaryAuthority();
                 PlayPrimaryAuthority(skillLocator.primary);
             }
             else if (skill == skillLocator.secondary)
             {
-                PlaySecondaryAuthority();
                 PlaySecondaryAuthority(skillLocator.secondary);
             }
             else if (skill == skillLocator.utility)
             {
-                PlayUtilityAuthority();
                 PlayUtilityAuthority(skillLocator.utility);
             }
             else if (skill == skillLocator.special)
             {
-                PlaySpecialAuthority();
                 PlaySpecialAuthority(skillLocator.special);
             }
         }
@@ -387,10 +383,6 @@ namespace BaseVoiceoverLib
         //Server = Runs on server, requires NetworkSoundEventDef and TryPlayNetworkSound
         //No tag = Runs on everyone, can just use TryPlaySound
         public virtual void PlaySpawn() { } //Plays after the body spawns
-        public virtual void PlayPrimaryAuthority() { }
-        public virtual void PlaySecondaryAuthority() { }
-        public virtual void PlayUtilityAuthority() { }
-        public virtual void PlaySpecialAuthority() { }
         public virtual void PlayPrimaryAuthority(GenericSkill skill) { }
         public virtual void PlaySecondaryAuthority(GenericSkill skill) { }
         public virtual void PlayUtilityAuthority(GenericSkill skill) { }
