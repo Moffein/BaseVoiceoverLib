@@ -266,18 +266,22 @@ namespace BaseVoiceoverLib
             if (skill == skillLocator.primary)
             {
                 PlayPrimaryAuthority();
+                PlayPrimaryAuthority(skillLocator.primary);
             }
             else if (skill == skillLocator.secondary)
             {
                 PlaySecondaryAuthority();
+                PlaySecondaryAuthority(skillLocator.secondary);
             }
             else if (skill == skillLocator.utility)
             {
                 PlayUtilityAuthority();
+                PlayUtilityAuthority(skillLocator.utility);
             }
             else if (skill == skillLocator.special)
             {
                 PlaySpecialAuthority();
+                PlaySpecialAuthority(skillLocator.special);
             }
         }
 
@@ -387,6 +391,10 @@ namespace BaseVoiceoverLib
         public virtual void PlaySecondaryAuthority() { }
         public virtual void PlayUtilityAuthority() { }
         public virtual void PlaySpecialAuthority() { }
+        public virtual void PlayPrimaryAuthority(GenericSkill skill) { }
+        public virtual void PlaySecondaryAuthority(GenericSkill skill) { }
+        public virtual void PlayUtilityAuthority(GenericSkill skill) { }
+        public virtual void PlaySpecialAuthority(GenericSkill skill) { }
         public virtual void PlayDamageBlockedServer() { }
         public virtual void PlayShrineOfChanceSuccessServer() { }
         public virtual void PlayShrineOfChanceFailServer() { }
