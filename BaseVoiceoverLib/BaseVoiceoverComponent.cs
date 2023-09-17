@@ -336,7 +336,6 @@ namespace BaseVoiceoverLib
         //Authority = Runs on client, requires NetworkSoundEventDef and TryPlayNetworkSound
         //Server = Runs on server, requires NetworkSoundEventDef and TryPlayNetworkSound
         //No tag = Runs on everyone, can just use TryPlaySound
-
         public virtual void PlaySpawn() { } //Plays after the body spawns
         public virtual void PlayPrimaryAuthority() { }
         public virtual void PlaySecondaryAuthority() { }
