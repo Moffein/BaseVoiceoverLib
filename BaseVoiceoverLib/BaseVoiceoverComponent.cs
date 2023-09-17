@@ -2,6 +2,8 @@
 using UnityEngine;
 using RoR2;
 using RoR2.Audio;
+using System.Collections.Generic;
+using System;
 
 namespace BaseVoiceoverLib
 {
@@ -39,10 +41,37 @@ namespace BaseVoiceoverLib
             On.RoR2.TeleporterInteraction.ChargedState.OnEnter += Hooks.ChargedState_OnEnter;
             On.RoR2.HealthComponent.TakeDamage += Hooks.HealthComponent_TakeDamage;
             On.EntityStates.Missions.BrotherEncounter.EncounterFinished.OnEnter += Hooks.EncounterFinished_OnEnter;
+            On.RoR2.ShrineChanceBehavior.AddShrineStack += Hooks.ShrineChanceBehavior_AddShrineStack;
         }
 
         private static class Hooks
         {
+            public static void ShrineChanceBehavior_AddShrineStack(On.RoR2.ShrineChanceBehavior.orig_AddShrineStack orig, ShrineChanceBehavior self, Interactor activator)
+            {
+                int successes = self.successfulPurchaseCount;
+                orig(self, activator);
+
+                //No change in successes = fail
+                if (NetworkServer.active)
+                {
+                    if (activator)
+                    {
+                        BaseVoiceoverComponent voice = activator.GetComponent<BaseVoiceoverComponent>();
+                        if (voice)
+                        {
+                            if (self.successfulPurchaseCount == successes)
+                            {
+                                voice.PlayShrineOfChanceFailServer();
+                            }
+                            else
+                            {
+                                voice.PlayShrineOfChanceSuccessServer();
+                            }
+                        }
+                    }
+                }
+            }
+
             public static void CharacterMotor_Jump(On.RoR2.CharacterMotor.orig_Jump orig, CharacterMotor self, float horizontalMultiplier, float verticalMultiplier, bool vault)
             {
                 orig(self, horizontalMultiplier, verticalMultiplier, vault);
@@ -359,6 +388,8 @@ namespace BaseVoiceoverLib
         public virtual void PlayUtilityAuthority() { }
         public virtual void PlaySpecialAuthority() { }
         public virtual void PlayDamageBlockedServer() { }
+        public virtual void PlayShrineOfChanceSuccessServer() { }
+        public virtual void PlayShrineOfChanceFailServer() { }
         public virtual void PlayHurt(float percentHPLost) { }
         public virtual void PlayJump() { }
         public virtual void PlayDeath() { }
@@ -367,5 +398,8 @@ namespace BaseVoiceoverLib
         public virtual void PlayVictory() { }
         public virtual void PlayLowHealth() { }
         public virtual void PlayLevelUp() { }
+
+        //Played in lobby. 
+        public virtual void PlayLobby() { }
     }
 }
