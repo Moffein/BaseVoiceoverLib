@@ -17,17 +17,16 @@ namespace BaseVoiceoverLib
         protected float voiceCooldown = 0f;
         protected float spawnVoicelineDelay = 0f;
         protected CharacterBody body;
-
         protected Inventory inventory;
-        private bool addedInventoryHook = false;
-
+        protected SkillLocator skillLocator;
         protected HealthComponent healthComponent;
+        protected NetworkStateMachine networker;
+
         private bool playedDeathSound = false;
         private float prevHP = 0f;
-
         private int prevLevel = 0;
+        private bool addedInventoryHook = false;
 
-        protected SkillLocator skillLocator;
 
         private static bool initializedHooks = false;
         public static void Init()
@@ -180,12 +179,18 @@ namespace BaseVoiceoverLib
             return playedSound;
         }
 
+        public bool isAuthority()
+        {
+            return networker && networker.hasAuthority;
+        }
+
         protected virtual void Awake()
         {
             //Get components separately to be extra safe
             body = base.GetComponent<CharacterBody>();
             skillLocator = base.GetComponent<SkillLocator>();
             healthComponent = base.GetComponent<HealthComponent>();
+            networker = base.GetComponent<NetworkStateMachine>();
 
             if (body)
             {
@@ -270,7 +275,15 @@ namespace BaseVoiceoverLib
 
             FixedUpdateHealth();
             FixedUpdateBody();
+
+            if (isAuthority())
+            {
+                CheckInputs();
+            }
         }
+
+        //Allow players to spam voicelines?
+        protected virtual void CheckInputs() { }
 
         //Checks for death, low health, and HP lost.
         protected virtual void FixedUpdateHealth()
