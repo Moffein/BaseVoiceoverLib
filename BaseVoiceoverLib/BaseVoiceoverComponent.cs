@@ -304,11 +304,11 @@ namespace BaseVoiceoverLib
 
             FixedUpdateHealth();
             FixedUpdateBody();
+        }
 
-            if (isAuthority())
-            {
-                CheckInputs();
-            }
+        protected virtual void Update()
+        {
+            if (isAuthority()) CheckInputs();
         }
 
         //Allow players to spam voicelines?
