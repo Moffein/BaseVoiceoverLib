@@ -10,7 +10,7 @@ using UnityEngine.AddressableAssets;
 
 namespace BaseVoiceoverLib
 {
-    [BepInPlugin("com.Moffein.BaseVoiceoverLib", "BaseVoiceoverLib", "1.1.3")]
+    [BepInPlugin("com.Moffein.BaseVoiceoverLib", "BaseVoiceoverLib", "1.1.4")]
     public class BaseVoiceoverLibPlugin : BaseUnityPlugin
     {
         public void Awake()
@@ -24,6 +24,8 @@ namespace BaseVoiceoverLib
         private void LobbyVoicelines(On.RoR2.SurvivorMannequins.SurvivorMannequinSlotController.orig_RebuildMannequinInstance orig, RoR2.SurvivorMannequins.SurvivorMannequinSlotController self)
         {
             orig(self);
+
+            if (!self || !self.currentSurvivorDef || !self.networkUser) return;
 
             foreach (VoiceoverInfo vo in VoiceoverInfo.voiceoverList)
             {
