@@ -10,7 +10,7 @@ using UnityEngine.AddressableAssets;
 
 namespace BaseVoiceoverLib
 {
-    [BepInPlugin("com.Moffein.BaseVoiceoverLib", "BaseVoiceoverLib", "1.1.4")]
+    [BepInPlugin("com.Moffein.BaseVoiceoverLib", "BaseVoiceoverLib", "1.1.5")]
     public class BaseVoiceoverLibPlugin : BaseUnityPlugin
     {
         public void Awake()
