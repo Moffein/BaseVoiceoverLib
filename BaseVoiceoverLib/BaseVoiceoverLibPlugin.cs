@@ -10,7 +10,8 @@ using UnityEngine.AddressableAssets;
 
 namespace BaseVoiceoverLib
 {
-    [BepInPlugin("com.Moffein.BaseVoiceoverLib", "BaseVoiceoverLib", "1.1.5")]
+    [R2API.Utils.NetworkCompatibility(R2API.Utils.CompatibilityLevel.EveryoneMustHaveMod, R2API.Utils.VersionStrictness.EveryoneNeedSameModVersion)]
+    [BepInPlugin("com.Moffein.BaseVoiceoverLib", "BaseVoiceoverLib", "1.1.6")]
     public class BaseVoiceoverLibPlugin : BaseUnityPlugin
     {
         public void Awake()
@@ -76,13 +77,5 @@ namespace BaseVoiceoverLib
                 }
             }
         }
-    }
-}
-
-namespace R2API.Utils
-{
-    [AttributeUsage(AttributeTargets.Assembly)]
-    public class ManualNetworkRegistrationAttribute : Attribute
-    {
     }
 }

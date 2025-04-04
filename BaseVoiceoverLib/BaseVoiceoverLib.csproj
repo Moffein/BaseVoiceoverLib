@@ -92,6 +92,9 @@
     <Reference Include="Newtonsoft.Json">
       <HintPath>libs\BepInEx\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="R2API.Core">
+      <HintPath>libs\R2API\R2API.Core.dll</HintPath>
+    </Reference>
     <Reference Include="Rewired_CSharp">
       <HintPath>libs\Rewired_CSharp.dll</HintPath>
     </Reference>
