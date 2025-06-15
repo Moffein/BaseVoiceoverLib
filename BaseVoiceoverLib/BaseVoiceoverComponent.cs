@@ -86,7 +86,7 @@ namespace BaseVoiceoverLib
                 }
             }
 
-            public static void ChargingState_OnEnter(On.RoR2.TeleporterInteraction.ChargingState.orig_OnEnter orig, EntityStates.BaseState self)
+            public static void ChargingState_OnEnter(On.RoR2.TeleporterInteraction.ChargingState.orig_OnEnter orig, TeleporterInteraction.ChargingState self)
             {
                 orig(self);
 
@@ -107,7 +107,7 @@ namespace BaseVoiceoverLib
                 }
             }
 
-            public static void ChargedState_OnEnter(On.RoR2.TeleporterInteraction.ChargedState.orig_OnEnter orig, EntityStates.BaseState self)
+            public static void ChargedState_OnEnter(On.RoR2.TeleporterInteraction.ChargedState.orig_OnEnter orig, TeleporterInteraction.ChargedState self)
             {
                 orig(self);
 
@@ -247,9 +247,12 @@ namespace BaseVoiceoverLib
             {
                 inventory = body.inventory;
                 inventory.onItemAddedClient += Inventory_onItemAddedClient;
+                inventory.onEquipmentChangedClient += Inventory_onEquipmentChangedClient;
                 addedInventoryHook = true;
             }
         }
+
+        protected virtual void Inventory_onEquipmentChangedClient(EquipmentIndex equipmentIndex, uint equipmentSlot) { }
 
         protected virtual void OnDestroy()
         {

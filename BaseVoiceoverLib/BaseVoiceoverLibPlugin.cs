@@ -11,7 +11,7 @@ using UnityEngine.AddressableAssets;
 namespace BaseVoiceoverLib
 {
     [R2API.Utils.NetworkCompatibility(R2API.Utils.CompatibilityLevel.EveryoneMustHaveMod, R2API.Utils.VersionStrictness.EveryoneNeedSameModVersion)]
-    [BepInPlugin("com.Moffein.BaseVoiceoverLib", "BaseVoiceoverLib", "1.1.6")]
+    [BepInPlugin("com.Moffein.BaseVoiceoverLib", "BaseVoiceoverLib", "1.2.0")]
     public class BaseVoiceoverLibPlugin : BaseUnityPlugin
     {
         public void Awake()
